@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07070a">
+    <title>Contact - VZiP DEVELOGENZ</title>
+    <meta name="description"
+        content="Get in touch with VZiP DEVELOGENZ for custom software development, digital marketing, and design services.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS build output -->
+    <link href="dist/styles.css" rel="stylesheet">
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- FontAwesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #07070a;
+            --text-hi: #ffffff;
+            --text-lo: #c9c7d6;
+            --cyan: #00e5ff;
+            --cyan-text: #0b0b10;
+            --blob-magenta: #ff2d8d;
+            --blob-orange: #ffb000;
+            --blob-purple: #7b2ff7;
+            --blob-blue: #3d5afe;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-hi);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* --- Intro Popup Styles --- */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 7, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #intro-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .pulse-logo {
+            animation: pulse-logo 2s infinite ease-in-out;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.4);
+        }
+
+        @keyframes pulse-logo {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(0, 229, 255, 0.6);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            }
+        }
+
+        /* --- Glassmorphism --- */
+        .glass-nav {
+            background: rgba(7, 7, 10, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 229, 255, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.05);
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        /* --- Buttons --- */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--cyan), #0099ff);
+            color: var(--cyan-text);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
+            transform: translateY(-3px) scale(1.02);
+            filter: brightness(1.2);
+        }
+
+        /* --- Floating Social Bar --- */
+        .social-float {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px 10px 15px 15px;
+            background: rgba(7, 7, 10, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: none;
+            border-radius: 20px 0 0 20px;
+        }
+
+        .social-float a {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .social-float a:hover {
+            transform: translateX(-5px) scale(1.1);
+        }
+
+        .social-float a.whatsapp:hover {
+            background: #25D366;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+        }
+
+        .social-float a.facebook:hover {
+            background: #1877F2;
+            box-shadow: 0 0 20px rgba(24, 119, 242, 0.6);
+        }
+
+        .social-float a.instagram:hover {
+            background: #E1306C;
+            box-shadow: 0 0 20px rgba(225, 48, 108, 0.6);
+        }
+
+        .social-float a.linkedin:hover {
+            background: #0A66C2;
+            box-shadow: 0 0 20px rgba(10, 102, 194, 0.6);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3d5afe;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--cyan);
+        }
+
+        /* --- Floating Bottom Nav Dock --- */
+        @keyframes dock-slide-up {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        #bottom-nav-dock {
+            position: fixed;
+            bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            padding: 6px 8px;
+            background: rgba(7, 7, 10, 0.82);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55),
+                0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+                0 0 40px rgba(0, 229, 255, 0.06);
+            max-width: calc(100vw - 24px);
+            animation: dock-slide-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
+        .dock-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 9px 14px;
+            border-radius: 80px;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            min-width: 60px;
+            min-height: 44px;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        .dock-btn i {
+            font-size: 15px;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .dock-btn:hover {
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .dock-btn:hover i,
+        .dock-btn:focus i {
+            transform: translateY(-2px) scale(1.15);
+        }
+
+        .dock-btn.active {
+            color: #0b0b10;
+            background: linear-gradient(135deg, #00e5ff, #0099ff);
+            box-shadow: 0 4px 18px rgba(0, 229, 255, 0.5);
+        }
+
+        .dock-btn.active i {
+            color: #0b0b10;
+        }
+
+        .dock-btn:active {
+            transform: scale(0.93);
+        }
+
+        .dock-divider {
+            width: 1px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            margin: 0 1px;
+            flex-shrink: 0;
+        }
+
+        body {
+            padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+        }
+
+        @media (max-width: 480px) {
+            #bottom-nav-dock {
+                bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+                gap: 0;
+                padding: 5px 6px;
+            }
+
+            .dock-btn {
+                padding: 8px 10px;
+                min-width: 52px;
+                min-height: 44px;
+                font-size: 8.5px;
+                gap: 2px;
+            }
+
+            .dock-btn i {
+                font-size: 14px;
+            }
+
+            .dock-divider {
+                margin: 0;
+                height: 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .dock-btn span {
+                display: none;
+            }
+
+            .dock-btn {
+                padding: 10px 12px;
+                min-width: 44px;
+                gap: 0;
+            }
+
+            .dock-btn i {
+                font-size: 16px;
+            }
+
+            .dock-divider {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-[#00e5ff] selection:text-[#0b0b10]">
+
+    <!-- FLOATING BOTTOM NAV DOCK -->
+    <nav id="bottom-nav-dock" aria-label="Page Navigation">
+        <a href="index.html" class="dock-btn" id="dock-home" aria-label="Home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <div class="dock-divider"></div>
+        <a href="services.html" class="dock-btn" id="dock-services" aria-label="Expertise">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Expertise</span>
+        </a>
+        <div class="dock-divider"></div>
+        <a href="portfolio.html" class="dock-btn" id="dock-portfolio" aria-label="Portfolio">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Portfolio</span>
+        </a>
+        <div class="dock-divider"></div>
+        <a href="contact.html" class="dock-btn active" id="dock-contact" aria-label="Contact">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <!-- FLOATING SOCIAL MEDIA BAR -->
+    <div class="social-float hidden md:flex" data-aos="fade-left" data-aos-delay="1000">
+        <a href="https://wa.me/94751398968" target="_blank" class="whatsapp" aria-label="WhatsApp"
+            title="WhatsApp: 0751398968">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="https://facebook.com" target="_blank" class="facebook" aria-label="Facebook"
+            title="Facebook: V.ZiP Develogenz">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="instagram" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" class="linkedin" aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+    </div>
+
+    <!-- Header / Nav (Sticky) -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="flex items-center justify-between px-6 py-4 md:px-12 lg:px-16 w-full max-w-7xl mx-auto">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="relative w-10 h-10 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-[360deg] transition-all duration-700 shadow-[0_0_15px_rgba(0,229,255,0.3)]"
+                    style="background: radial-gradient(circle at 70% 30%, #50a9a0 0%, #151e32 50%, #0a0f1d 100%);">
+                    <div class="w-[65%] h-[65%] bg-white rounded-lg flex items-center justify-center shadow-md">
+                        <span class="text-[14px] font-black tracking-tight" style="color: #111a2c;">VZ</span>
+                    </div>
+                </div>
+                <!-- Brand text adjusts briefly to just VZiP on very small screens -->
+                <span class="font-display font-bold text-base sm:text-lg md:text-xl tracking-wide">
+                    VZiP <span class="text-[#00e5ff] glow-text hidden md:inline">DEVELOGENZ</span>
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 text-sm tracking-wider uppercase font-semibold text-white/80"
+                aria-label="Primary">
+                <a href="index.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Home</a>
+                <a href="services.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Expertise</a>
+                <a href="portfolio.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Portfolio</a>
+                <a href="contact.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Contact</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/94751398968" target="_blank"
+                    class="hidden sm:inline-flex btn-primary px-6 py-2.5 rounded-full font-bold text-sm tracking-wide items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Let's Talk
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTACT SECTION -->
+    <section class="pt-20 pb-16 md:pb-24 px-6 md:px-12 lg:px-16 w-full max-w-6xl mx-auto relative z-10"
+        data-aos="zoom-in" data-aos-duration="1200">
+        <div
+            class="relative rounded-[30px] md:rounded-[40px] p-[2px] md:p-1 bg-gradient-to-br from-[#00e5ff] via-[#7b2ff7] to-[#ff2d8d] shadow-[0_0_30px_rgba(123,47,247,0.3)] md:shadow-[0_0_50px_rgba(123,47,247,0.3)]">
+            <div
+                class="flex flex-col lg:flex-row gap-10 lg:gap-16 bg-[#0a0a0f] p-6 md:p-14 lg:p-20 rounded-[28px] md:rounded-[38px] relative overflow-hidden backdrop-blur-3xl">
+
+                <div
+                    class="absolute -top-20 -left-20 md:-top-40 md:-left-40 w-64 md:w-96 h-64 md:h-96 bg-[#00e5ff] rounded-full mix-blend-screen filter blur-[100px] md:blur-[150px] opacity-30">
+                </div>
+
+                <div class="flex-1 relative z-10">
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">Initialize
+                        <br />Your Growth.
+                    </h2>
+                    <p class="text-[#c9c7d6] text-lg md:text-xl mb-8 md:mb-12 max-w-md">Whether you need Meta ads,
+                        TikTok handling, or a
+                        custom app—let's build your success story.</p>
+
+                    <!-- Direct Contact Links -->
+                    <div class="flex flex-col gap-6">
+                        <a href="https://wa.me/94751398968" target="_blank" class="flex items-center gap-4 group">
+                            <div
+                                class="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[#25D366]/20 group-hover:border-[#25D366] transition-all duration-300">
+                                <i class="fa-brands fa-whatsapp text-2xl text-white group-hover:text-[#25D366]"></i>
+                            </div>
+                            <div>
+                                <p class="text-white/50 text-xs uppercase tracking-wider font-bold mb-1">WhatsApp
+                                    Business</p>
+                                <p
+                                    class="text-white group-hover:text-[#25D366] transition-colors font-semibold text-xl tracking-wide">
+                                    075 139 8968</p>
+                            </div>
+                        </a>
+
+                        <a href="https://facebook.com" target="_blank" class="flex items-center gap-4 group">
+                            <div
+                                class="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[#1877F2]/20 group-hover:border-[#1877F2] transition-all duration-300">
+                                <i class="fa-brands fa-facebook-f text-2xl text-white group-hover:text-[#1877F2]"></i>
+                            </div>
+                            <div>
+                                <p class="text-white/50 text-xs uppercase tracking-wider font-bold mb-1">Facebook Page
+                                </p>
+                                <p
+                                    class="text-white group-hover:text-[#1877F2] transition-colors font-semibold text-xl tracking-wide">
+                                    V.ZiP Develogenz</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex-1 relative z-10">
+                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('Transmission Sent!');">
+                        <div class="grid grid-cols-1 gap-6">
+                            <input type="text" required
+                                class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 focus:outline-none focus:border-[#00e5ff] focus:bg-white/10 transition-all text-white placeholder-white/30 backdrop-blur-sm"
+                                placeholder="Your Name or Business">
+
+                            <input type="tel" required
+                                class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 focus:outline-none focus:bg-white/10 focus:border-[#ff2d8d] transition-all text-white placeholder-white/30 backdrop-blur-sm"
+                                placeholder="Phone / WhatsApp Number">
+
+                            <!-- Dropdown for Services -->
+                            <select
+                                class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 focus:outline-none focus:bg-white/10 focus:border-[#7b2ff7] transition-all text-white placeholder-white/30 backdrop-blur-sm appearance-none cursor-pointer">
+                                <option value="" disabled selected class="text-black">What service do you need?</option>
+                                <option value="Meta Ads & Marketing" class="text-black">Meta Ads & Marketing</option>
+                                <option value="TikTok & Social Media Handling" class="text-black">TikTok & Social Media
+                                    Handling</option>
+                                <option value="Logo & Graphic Design" class="text-black">Logo & Graphic Design</option>
+                                <option value="Web or Mobile App" class="text-black">Web or Mobile App Development
+                                </option>
+                                <option value="Multiple / Other" class="text-black">Multiple Services / Other</option>
+                            </select>
+
+                            <textarea required rows="3"
+                                class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 focus:outline-none focus:bg-white/10 focus:border-[#00e5ff] transition-all text-white placeholder-white/30 backdrop-blur-sm resize-none"
+                                placeholder="Tell us more about your business goals..."></textarea>
+                        </div>
+                        <button type="submit"
+                            class="btn-primary w-full py-5 rounded-2xl font-bold text-lg mt-2 shadow-[0_10px_30px_rgba(0,229,255,0.3)] hover:shadow-[0_20px_40px_rgba(0,229,255,0.5)] uppercase tracking-widest flex items-center justify-center gap-3">
+                            Initiate Project <i class="fa-solid fa-rocket"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 pt-16 pb-8 px-6 relative z-10 bg-[var(--bg-dark)]" data-aos="fade-up">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="font-display font-bold text-2xl tracking-wide flex items-center gap-4">
+                <div class="relative w-12 h-12 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,229,255,0.2)]"
+                    style="background: radial-gradient(circle at 70% 30%, #50a9a0 0%, #151e32 50%, #0a0f1d 100%);">
+                    <div class="w-[65%] h-[65%] bg-white rounded-md flex items-center justify-center shadow-sm">
+                        <span class="text-[12px] font-black tracking-tight" style="color: #111a2c;">VZ</span>
+                    </div>
+                </div>
+                VZiP <span class="text-[#00e5ff]">DEVELOGENZ</span>
+            </div>
+
+            <div class="flex gap-6">
+                <a href="https://wa.me/94751398968" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#25D366] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                </a>
+                <a href="https://facebook.com" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#1877F2] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-facebook-f text-xl"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#E1306C] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-instagram text-xl"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#0A66C2] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-linkedin-in text-xl"></i>
+                </a>
+            </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-white/5 text-center flex flex-col items-center">
+            <p class="text-white/40 text-sm">© 2026 VZiP DEVELOGENZ. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        /* --- Intro & Audio Logic --- */
+        const introOverlay = document.getElementById('intro-overlay');
+        const enterBtn = document.getElementById('enter-site-btn');
+        const body = document.body;
+
+        // Only add listener if elements exist (has intro overlay)
+        if (enterBtn && introOverlay) {
+            enterBtn.addEventListener('click', () => {
+                // Play TTS Audio using Web Speech API
+                try {
+                    const utterance = new SpeechSynthesisUtterance("Welcome to Develoagency");
+
+                    // Try to find a realistic male voice
+                    let voices = window.speechSynthesis.getVoices();
+                    let maleVoice = voices.find(v =>
+                        v.name.toLowerCase().includes('male') ||
+                        v.name.toLowerCase().includes('guy') ||
+                        v.name.toLowerCase().includes('david') ||
+                        v.name.toLowerCase().includes('daniel') ||
+                        v.name.toLowerCase().includes('alex') ||
+                        v.name.toLowerCase().includes('tom') ||
+                        v.name.toLowerCase().includes('english') ||
+                        v.lang.startsWith('en-')
+                    );
+
+                    // If male voice found, use it. Otherwise browser default.
+                    if (maleVoice) utterance.voice = maleVoice;
+
+                    utterance.rate = 0.9; // More natural pace
+                    utterance.pitch = 0.7; // Deeper, more masculine
+                    utterance.volume = 0.9; // Slightly softer for realism
+
+                    window.speechSynthesis.speak(utterance);
+                } catch (e) {
+                    console.log("SpeechSynthesis not supported or blocked");
+                }
+
+                // Hide overlay, enable scroll
+                introOverlay.classList.add('hidden');
+                body.classList.remove('no-scroll');
+
+                // Re-trigger AOS slightly after entering to ensure things fade in nicely
+                setTimeout(() => { AOS.refresh(); }, 100);
+            });
+
+            // Ensure voices are loaded (Chrome loads them async)
+            if (window.speechSynthesis) {
+                window.speechSynthesis.onvoiceschanged = () => {
+                    window.speechSynthesis.getVoices();
+                };
+            }
+        }
+
+        /* --- Navbar Glassmorphism Enhancement & Mobile Menu--- */
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-[0_10px_30px_rgba(0,0,0,0.5)]');
+                header.style.background = 'rgba(7, 7, 10, 0.85)';
+            } else {
+                header.classList.remove('shadow-[0_10px_30px_rgba(0,0,0,0.5)]');
+                header.style.background = 'rgba(7, 7, 10, 0.4)';
+            }
+        });
+
+        // Mobile Menu Handler
+        function initMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const body = document.body;
+
+            if (!mobileMenuBtn || !mobileMenu) return;
+
+            // Toggle mobile menu on button click
+            const toggleMobileMenu = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const isHidden = mobileMenu.classList.contains('hidden');
+                if (isHidden) {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                    body.style.overflow = 'hidden';
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    body.style.overflow = '';
+                }
+
+                // Update icon
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.className = 'fa-solid fa-bars';
+                    } else {
+                        icon.className = 'fa-solid fa-xmark';
+                    }
+                }
+            };
+
+            // Close mobile menu
+            const closeMobileMenu = () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                body.style.overflow = '';
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) icon.className = 'fa-solid fa-bars';
+            };
+
+            // Button click handler - with immediate binding
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu, true);
+            mobileMenuBtn.addEventListener('touchstart', toggleMobileMenu, true);
+
+            // Close menu when clicking on a navigation link
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    closeMobileMenu();
+                }, true);
+            });
+
+            // Close menu when pressing Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.classList.contains('hidden') &&
+                    !mobileMenuBtn.contains(e.target) &&
+                    !mobileMenu.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            });
+        }
+
+        // Initialize on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMobileMenu);
+        } else {
+            initMobileMenu();
+        }
+
+        // Also try initializing after a short delay
+        setTimeout(initMobileMenu, 100);
+    </script>
+</body>
+
+</html>

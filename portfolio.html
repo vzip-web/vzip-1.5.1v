@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07070a">
+    <title>Portfolio - VZiP DEVELOGENZ</title>
+    <meta name="description"
+        content="VZiP DEVELOGENZ - We handle everything from eye-catching logo design, Meta & TikTok advertising, social media handling, to custom mobile and web applications.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS build output -->
+    <link href="dist/styles.css" rel="stylesheet">
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- FontAwesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #07070a;
+            --text-hi: #ffffff;
+            --text-lo: #c9c7d6;
+            --cyan: #00e5ff;
+            --cyan-text: #0b0b10;
+            --blob-magenta: #ff2d8d;
+            --blob-orange: #ffb000;
+            --blob-purple: #7b2ff7;
+            --blob-blue: #3d5afe;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-hi);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* --- Intro Popup Styles --- */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 7, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #intro-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .pulse-logo {
+            animation: pulse-logo 2s infinite ease-in-out;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.4);
+        }
+
+        @keyframes pulse-logo {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(0, 229, 255, 0.6);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            }
+        }
+
+        /* --- Hero Video (not used on this page) --- */
+
+        /* --- Glassmorphism --- */
+        .glass-nav {
+            background: rgba(7, 7, 10, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 229, 255, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.05);
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        /* --- Buttons --- */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--cyan), #0099ff);
+            color: var(--cyan-text);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
+            transform: translateY(-3px) scale(1.02);
+            filter: brightness(1.2);
+        }
+
+        /* --- Floating Social Bar --- */
+        .social-float {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px 10px 15px 15px;
+            background: rgba(7, 7, 10, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: none;
+            border-radius: 20px 0 0 20px;
+        }
+
+        .social-float a {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .social-float a:hover {
+            transform: translateX(-5px) scale(1.1);
+        }
+
+        .social-float a.whatsapp:hover {
+            background: #25D366;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+        }
+
+        .social-float a.facebook:hover {
+            background: #1877F2;
+            box-shadow: 0 0 20px rgba(24, 119, 242, 0.6);
+        }
+
+        .social-float a.instagram:hover {
+            background: #E1306C;
+            box-shadow: 0 0 20px rgba(225, 48, 108, 0.6);
+        }
+
+        .social-float a.linkedin:hover {
+            background: #0A66C2;
+            box-shadow: 0 0 20px rgba(10, 102, 194, 0.6);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3d5afe;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--cyan);
+        }
+
+        /* --- Floating Bottom Nav Dock --- */
+        @keyframes dock-slide-up {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        #bottom-nav-dock {
+            position: fixed;
+            bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            padding: 6px 8px;
+            background: rgba(7, 7, 10, 0.82);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55),
+                0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+                0 0 40px rgba(0, 229, 255, 0.06);
+            max-width: calc(100vw - 24px);
+            animation: dock-slide-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
+        .dock-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 9px 14px;
+            border-radius: 80px;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            min-width: 60px;
+            min-height: 44px;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        .dock-btn i {
+            font-size: 15px;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .dock-btn:hover {
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .dock-btn:hover i,
+        .dock-btn:focus i {
+            transform: translateY(-2px) scale(1.15);
+        }
+
+        .dock-btn.active {
+            color: #0b0b10;
+            background: linear-gradient(135deg, #00e5ff, #0099ff);
+            box-shadow: 0 4px 18px rgba(0, 229, 255, 0.5);
+        }
+
+        .dock-btn.active i {
+            color: #0b0b10;
+        }
+
+        .dock-btn:active {
+            transform: scale(0.93);
+        }
+
+        .dock-divider {
+            width: 1px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            margin: 0 1px;
+            flex-shrink: 0;
+        }
+
+        body {
+            padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+        }
+
+        @media (max-width: 480px) {
+            #bottom-nav-dock {
+                bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+                gap: 0;
+                padding: 5px 6px;
+            }
+
+            .dock-btn {
+                padding: 8px 10px;
+                min-width: 52px;
+                min-height: 44px;
+                font-size: 8.5px;
+                gap: 2px;
+            }
+
+            .dock-btn i {
+                font-size: 14px;
+            }
+
+            .dock-divider {
+                margin: 0;
+                height: 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .dock-btn span {
+                display: none;
+            }
+
+            .dock-btn {
+                padding: 10px 12px;
+                min-width: 44px;
+                gap: 0;
+            }
+
+            .dock-btn i {
+                font-size: 16px;
+            }
+
+            .dock-divider {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-[#00e5ff] selection:text-[#0b0b10]">
+
+    <!-- FLOATING BOTTOM NAV DOCK -->
+    <nav id="bottom-nav-dock" aria-label="Page Navigation">
+        <a href="index.html" class="dock-btn" id="dock-home" aria-label="Home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <div class="dock-divider"></div>
+        <a href="services.html" class="dock-btn" id="dock-services" aria-label="Expertise">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Expertise</span>
+        </a>
+        <div class="dock-divider"></div>
+        <a href="portfolio.html" class="dock-btn active" id="dock-portfolio" aria-label="Portfolio">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Portfolio</span>
+        </a>
+        <div class="dock-divider"></div>
+        <a href="contact.html" class="dock-btn" id="dock-contact" aria-label="Contact">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="flex items-center justify-between px-6 py-4 md:px-12 lg:px-16 w-full max-w-7xl mx-auto">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="relative w-10 h-10 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-[360deg] transition-all duration-700 shadow-[0_0_15px_rgba(0,229,255,0.3)]"
+                    style="background: radial-gradient(circle at 70% 30%, #50a9a0 0%, #151e32 50%, #0a0f1d 100%);">
+                    <div class="w-[65%] h-[65%] bg-white rounded-lg flex items-center justify-center shadow-md">
+                        <span class="text-[14px] font-black tracking-tight" style="color: #111a2c;">VZ</span>
+                    </div>
+                </div>
+                <span class="font-display font-bold text-base sm:text-lg md:text-xl tracking-wide">
+                    VZiP <span class="text-[#00e5ff] glow-text hidden md:inline">DEVELOGENZ</span>
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 text-sm tracking-wider uppercase font-semibold text-white/80"
+                aria-label="Primary">
+                <a href="index.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Home</a>
+                <a href="services.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Expertise</a>
+                <a href="portfolio.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Portfolio</a>
+                <a href="contact.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Contact</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/94751398968" target="_blank"
+                    class="hidden sm:inline-flex lg:inline-flex btn-primary px-6 py-2.5 rounded-full font-bold text-sm tracking-wide items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Let's Talk
+                </a>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio"
+        class="py-16 md:py-24 px-4 sm:px-6 md:px-12 w-full max-w-[1400px] mx-auto relative z-10 my-8 md:my-12 overflow-hidden">
+        <div
+            class="absolute inset-0 bg-gradient-to-b from-[#111119] to-[#07070a] rounded-[40px] md:rounded-[60px] border border-white/5 -z-10 shadow-2xl">
+        </div>
+        <div
+            class="absolute top-0 right-0 w-[500px] md:w-[800px] h-[500px] md:h-[800px] bg-[radial-gradient(circle,rgba(0,229,255,0.05)_0%,transparent_70%)] rounded-full -z-10 blur-3xl">
+        </div>
+
+        <div class="p-4 sm:p-8 md:p-16">
+            <div class="mb-12 md:mb-20 flex flex-col items-center text-center" data-aos="fade-up">
+                <span class="text-[#00e5ff] uppercase tracking-widest text-sm font-bold mb-3 block">Featured Work</span>
+                <h2 class="font-display text-5xl md:text-6xl font-bold mb-6 tracking-tight">Our <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff2d8d] to-[#00e5ff]">Portfolio</span>
+                </h2>
+                <p class="text-[#c9c7d6] text-xl max-w-2xl">Browse the campaigns, designs, and digital products we've
+                    brought to life for elite clients.</p>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Portfolio Item 1 -->
+                <div class="group cursor-pointer relative rounded-[30px] overflow-hidden" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div class="w-full aspect-square bg-[#1a1a24] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800"
+                            alt="TikTok Ad Campaign"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out opacity-80 group-hover:opacity-100">
+                        <!-- Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-black/40 to-transparent"></div>
+
+                        <div
+                            class="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span
+                                class="self-start px-4 py-1.5 mb-4 rounded-full bg-[#ff2d8d]/20 text-[#ff2d8d] text-xs font-bold backdrop-blur-md border border-[#ff2d8d]/30 relative overflow-hidden">
+                                <span class="relative z-10"><i class="fa-brands fa-tiktok mr-1"></i> TikTok
+                                    Marketing</span>
+                            </span>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 leading-tight">Viral Video
+                                Campaign</h3>
+                            <p class="text-white/70 text-sm">Created an eye-catching video series that generated 2M+
+                                organic views and drove 300% sales increase.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 -->
+                <div class="group cursor-pointer relative rounded-[30px] overflow-hidden" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <div class="w-full aspect-square bg-[#1a1a24] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800"
+                            alt="Brand Identity & Logo"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-black/40 to-transparent"></div>
+
+                        <div
+                            class="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span
+                                class="self-start px-4 py-1.5 mb-4 rounded-full bg-[#ffb000]/20 text-[#ffb000] text-xs font-bold backdrop-blur-md border border-[#ffb000]/30">
+                                <i class="fa-solid fa-pen-nib mr-1"></i> Graphic Design
+                            </span>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 leading-tight">Aura Brand
+                                Identity</h3>
+                            <p class="text-white/70 text-sm">Eye-catching logo design and complete corporate artwork
+                                packet for a modern lifestyle brand.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 -->
+                <div class="group.cursor-pointer relative rounded-[30px] overflow-hidden" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <div class="w-full aspect-square bg-[#1a1a24] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+                            alt="Meta Ads Dashboard"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out opacity-80 group-hover:opacity-100 filter hue-rotate-15">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-black/40 to-transparent"></div>
+
+                        <div
+                            class="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span
+                                class="self-start px-4 py-1.5 mb-4 rounded-full bg-[#1877F2]/20 text-[#60a5fa] text-xs font-bold backdrop-blur-md border border-[#1877F2]/30">
+                                <i class="fa-brands fa-meta mr-1"></i> Meta Advertising
+                            </span>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 leading-tight">E-Commerce Scaling
+                            </h3>
+                            <p class="text-white/70 text-sm">Professional Meta app setup and targeted post boosting
+                                yielding a 4.5x Return on Ad Spend (ROAS).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 4 -->
+                <div class="group.cursor-pointer relative rounded-[30px] overflow-hidden mt-0 md:mt-8 lg:mt-0"
+                    data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-full aspect-square bg-[#1a1a24] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800"
+                            alt="Web Development"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-black/40 to-transparent"></div>
+
+                        <div
+                            class="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span
+                                class="self-start px-4 py-1.5 mb-4 rounded-full bg-[#00e5ff]/20 text-[#00e5ff] text-xs font-bold backdrop-blur-md border border-[#00e5ff]/30">
+                                <i class="fa-solid fa-code mr-1"></i> Web App
+                            </span>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 leading-tight">Nexus Analytics
+                                Platform</h3>
+                            <p class="text-white/70 text-sm">High-performance custom web application solving complex
+                                data visualization needs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 5 -->
+                <div class="group.cursor-pointer relative rounded-[30px] overflow-hidden mt-0 md:mt-8 lg:mt-0"
+                    data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-full aspect-square bg-[#1a1a24] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=800"
+                            alt="Mobile App"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-black/40 to-transparent"></div>
+
+                        <div
+                            class="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span
+                                class="self-start px-4 py-1.5 mb-4 rounded-full bg-[#7b2ff7]/20 text-[#b68cff] text-xs font-bold backdrop-blur-md border border-[#7b2ff7]/30">
+                                <i class="fa-solid fa-mobile-screen mr-1"></i> Mobile App
+                            </span>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 leading-tight">FitConnect App
+                            </h3>
+                            <p class="text-white/70 text-sm">Cross-platform mobile application development with seamless
+                                UI/UX and real-time syncing.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- See More CTA -->
+                <div class="group cursor-pointer relative rounded-[30px] overflow-hidden flex items-center justify-center border-2 border-dashed border-white/20 hover:border-[#00e5ff]/50 hover:bg-[#00e5ff]/5 transition-all mt-0 md:mt-8 lg:mt-0 aspect-square"
+                    data-aos="fade-up" data-aos-delay="600">
+                    <div class="text-center p-8">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform group-hover:bg-[#00e5ff] group-hover:text-black shadow-[0_0_20px_rgba(0,0,0,0)] group-hover:shadow-[0_0_30px_rgba(0,229,255,0.4)]">
+                            <i class="fa-solid fa-arrow-right text-2xl"></i>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-white mb-2">View All Projects</h3>
+                        <p class="text-white/50 text-sm">See how we transform ideas into reality.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer copied from index.html -->
+    <footer class="border-t border-white/5 pt-16 pb-8 px-6 relative z-10 bg-[var(--bg-dark)]" data-aos="fade-up">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="font-display font-bold text-2xl tracking-wide flex items-center gap-4">
+                <div class="relative w-12 h-12 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,229,255,0.2)]"
+                    style="background: radial-gradient(circle at 70% 30%, #50a9a0 0%, #151e32 50%, #0a0f1d 100%);">
+                    <div class="w-[65%] h-[65%] bg-white rounded-md flex items-center justify-center shadow-sm">
+                        <span class="text-[12px] font-black tracking-tight" style="color: #111a2c;">VZ</span>
+                    </div>
+                </div>
+                VZiP <span class="text-[#00e5ff]">DEVELOGENZ</span>
+            </div>
+
+            <div class="flex gap-6">
+                <a href="https://wa.me/94751398968" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#25D366] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                </a>
+                <a href="https://facebook.com" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#1877F2] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-facebook-f text-xl"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#E1306C] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-instagram text-xl"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#0A66C2] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-linkedin-in text-xl"></i>
+                </a>
+            </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-white/5 text-center flex flex-col items-center">
+            <p class="text-white/40 text-sm">© 2026 VZiP DEVELOGENZ. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts copied from index.html -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        /* --- Intro & Audio Logic --- */
+        const introOverlay = document.getElementById('intro-overlay');
+        const enterBtn = document.getElementById('enter-site-btn');
+        const body = document.body;
+
+        // Only add listener if elements exist (index.html only)
+        if (enterBtn && introOverlay) {
+            enterBtn.addEventListener('click', () => {
+                // Play TTS Audio using Web Speech API
+                try {
+                    window.speechSynthesis.getVoices();
+                } catch (err) {
+                    console.warn('TTS initialization failed', err);
+                }
+                introOverlay.classList.add('hidden');
+                body.classList.remove('no-scroll');
+            });
+        }
+
+        /* --- Navbar Glassmorphism Enhancement & Mobile Menu--- */
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-[0_10px_30px_rgba(0,0,0,0.5)]');
+                header.style.background = 'rgba(7, 7, 10, 0.85)';
+            } else {
+                header.classList.remove('shadow-[0_10px_30px_rgba(0,0,0,0.5)]');
+                header.style.background = 'rgba(7, 7, 10, 0.4)';
+            }
+        });
+
+        // Mobile Menu Handler
+        function initMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const body = document.body;
+
+            if (!mobileMenuBtn || !mobileMenu) return;
+
+            // Toggle mobile menu on button click
+            const toggleMobileMenu = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const isHidden = mobileMenu.classList.contains('hidden');
+                if (isHidden) {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                    body.style.overflow = 'hidden';
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    body.style.overflow = '';
+                }
+
+                // Update icon
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.className = 'fa-solid fa-bars';
+                    } else {
+                        icon.className = 'fa-solid fa-xmark';
+                    }
+                }
+            };
+
+            // Close mobile menu
+            const closeMobileMenu = () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                body.style.overflow = '';
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) icon.className = 'fa-solid fa-bars';
+            };
+
+            // Button click handler - with immediate binding
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu, true);
+            mobileMenuBtn.addEventListener('touchstart', toggleMobileMenu, true);
+
+            // Close menu when clicking on a navigation link
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    closeMobileMenu();
+                }, true);
+            });
+
+            // Close menu when pressing Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.classList.contains('hidden') &&
+                    !mobileMenuBtn.contains(e.target) &&
+                    !mobileMenu.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            });
+        }
+
+        // Initialize on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMobileMenu);
+        } else {
+            initMobileMenu();
+        }
+
+        // Also try initializing after a short delay
+        setTimeout(initMobileMenu, 100);
+    </script>
+</body>
+
+</html>

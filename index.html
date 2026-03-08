@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- theme-color for mobile status bar -->
+    <meta name="theme-color" content="#07070a">
+    <title>VZiP DEVELOGENZ • Digital Agency • Marketing & Tech</title>
+    <meta name="description"
+        content="VZiP DEVELOGENZ - We handle everything from eye-catching logo design, Meta & TikTok advertising, social media handling, to custom mobile and web applications.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS build output (replace via npm script) -->
+    <link href="dist/styles.css" rel="stylesheet">
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- FontAwesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #07070a;
+            --text-hi: #ffffff;
+            --text-lo: #c9c7d6;
+            --cyan: #00e5ff;
+            --cyan-text: #0b0b10;
+            --blob-magenta: #ff2d8d;
+            --blob-orange: #ffb000;
+            --blob-purple: #7b2ff7;
+            --blob-blue: #3d5afe;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-hi);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* --- Intro Popup Styles --- */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 7, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #intro-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .pulse-logo {
+            animation: pulse-logo 2s infinite ease-in-out;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.4);
+        }
+
+        @keyframes pulse-logo {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(0, 229, 255, 0.6);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            }
+        }
+
+        /* --- Hero Video --- */
+        .hero {
+            position: relative;
+            background: var(--bg-dark);
+            color: var(--text-hi);
+        }
+
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.35;
+            mix-blend-mode: screen;
+            filter: contrast(1.3) saturate(1.8) hue-rotate(-10deg);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(7, 7, 10, 0.3) 0%, rgba(7, 7, 10, 0.8) 80%, rgba(7, 7, 10, 1) 100%);
+            z-index: 1;
+        }
+
+        /* --- Animated Blobs --- */
+        .hero__blob {
+            position: absolute;
+            width: 60vw;
+            min-width: 400px;
+            height: 60vw;
+            background: radial-gradient(circle, var(--blob-purple) 0%, transparent 60%);
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+            z-index: 2;
+            border-radius: 50%;
+        }
+
+        .hero__blob-2 {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--cyan) 0%, transparent 60%);
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out reverse;
+            z-index: 2;
+            border-radius: 50%;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(100px, -50px) scale(1.2);
+            }
+
+            66% {
+                transform: translate(-50px, 100px) scale(0.8);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        /* --- Glassmorphism --- */
+        .glass-nav {
+            background: rgba(7, 7, 10, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 229, 255, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.05);
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        /* --- Buttons --- */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--cyan), #0099ff);
+            color: var(--cyan-text);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
+            transform: translateY(-3px) scale(1.02);
+            filter: brightness(1.2);
+        }
+
+        /* --- Floating Social Bar --- */
+        .social-float {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px 10px 15px 15px;
+            background: rgba(7, 7, 10, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: none;
+            border-radius: 20px 0 0 20px;
+        }
+
+        .social-float a {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .social-float a:hover {
+            transform: translateX(-5px) scale(1.1);
+        }
+
+        .social-float a.whatsapp:hover {
+            background: #25D366;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+        }
+
+        .social-float a.facebook:hover {
+            background: #1877F2;
+            box-shadow: 0 0 20px rgba(24, 119, 242, 0.6);
+        }
+
+        .social-float a.instagram:hover {
+            background: #E1306C;
+            box-shadow: 0 0 20px rgba(225, 48, 108, 0.6);
+        }
+
+        .social-float a.linkedin:hover {
+            background: #0A66C2;
+            box-shadow: 0 0 20px rgba(10, 102, 194, 0.6);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3d5afe;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--cyan);
+        }
+
+        /* --- Floating Bottom Nav Dock --- */
+        @keyframes dock-slide-up {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        #bottom-nav-dock {
+            position: fixed;
+            bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            padding: 6px 8px;
+            background: rgba(7, 7, 10, 0.82);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55),
+                0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+                0 0 40px rgba(0, 229, 255, 0.06);
+            max-width: calc(100vw - 24px);
+            animation: dock-slide-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
+        .dock-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 9px 14px;
+            border-radius: 80px;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            min-width: 60px;
+            min-height: 44px;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        .dock-btn i {
+            font-size: 15px;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .dock-btn:hover {
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .dock-btn:hover i,
+        .dock-btn:focus i {
+            transform: translateY(-2px) scale(1.15);
+        }
+
+        .dock-btn.active {
+            color: #0b0b10;
+            background: linear-gradient(135deg, #00e5ff, #0099ff);
+            box-shadow: 0 4px 18px rgba(0, 229, 255, 0.5);
+        }
+
+        .dock-btn.active i {
+            color: #0b0b10;
+        }
+
+        .dock-btn:active {
+            transform: scale(0.93);
+        }
+
+        .dock-divider {
+            width: 1px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            margin: 0 1px;
+            flex-shrink: 0;
+        }
+
+        /* Safe bottom padding so content isn't hidden behind the dock */
+        body {
+            padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+        }
+
+        /* ── Mobile-specific tweaks (≤ 480px) ── */
+        @media (max-width: 480px) {
+            #bottom-nav-dock {
+                bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+                gap: 0;
+                padding: 5px 6px;
+            }
+
+            .dock-btn {
+                padding: 8px 10px;
+                min-width: 52px;
+                min-height: 44px;
+                font-size: 8.5px;
+                gap: 2px;
+            }
+
+            .dock-btn i {
+                font-size: 14px;
+            }
+
+            .dock-divider {
+                margin: 0;
+                height: 20px;
+            }
+        }
+
+        /* ── Extra-small phones (≤ 360px): icon-only mode ── */
+        @media (max-width: 360px) {
+            .dock-btn span {
+                display: none;
+            }
+
+            .dock-btn {
+                padding: 10px 12px;
+                min-width: 44px;
+                gap: 0;
+            }
+
+            .dock-btn i {
+                font-size: 16px;
+            }
+
+            .dock-divider {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-[#00e5ff] selection:text-[#0b0b10]">
+
+    <!-- FLOATING BOTTOM NAV DOCK -->
+    <nav id="bottom-nav-dock" aria-label="Page Navigation">
+        <a href="index.html" class="dock-btn active" id="dock-home" aria-label="Home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <div class="dock-divider"></div>
+        <a href="services.html" class="dock-btn" id="dock-services" aria-label="Expertise">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Expertise</span>
+        </a>
+        <div class="dock-divider"></div>
+        <a href="portfolio.html" class="dock-btn" id="dock-portfolio" aria-label="Portfolio">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Portfolio</span>
+        </a>
+        <div class="dock-divider"></div>
+        <a href="contact.html" class="dock-btn" id="dock-contact" aria-label="Contact">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <!-- FLOATING SOCIAL MEDIA BAR -->
+    <div class="social-float hidden md:flex" data-aos="fade-left" data-aos-delay="1000">
+        <a href="https://wa.me/94751398968" target="_blank" class="whatsapp" aria-label="WhatsApp"
+            title="WhatsApp: 0751398968">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="https://facebook.com" target="_blank" class="facebook" aria-label="Facebook"
+            title="Facebook: V.ZiP Develogenz">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="instagram" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" class="linkedin" aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+    </div>
+
+    <!-- Header / Nav (Sticky) -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="flex items-center justify-between px-6 py-4 md:px-12 lg:px-16 w-full max-w-7xl mx-auto">
+            <a href="#home" class="flex items-center gap-3 group">
+                <div class="relative w-10 h-10 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-[360deg] transition-all duration-700 shadow-[0_0_15px_rgba(0,229,255,0.3)]"
+                    style="background: radial-gradient(circle at 70% 30%, #50a9a0 0%, #151e32 50%, #0a0f1d 100%);">
+                    <div class="w-[65%] h-[65%] bg-white rounded-lg flex items-center justify-center shadow-md">
+                        <span class="text-[14px] font-black tracking-tight" style="color: #111a2c;">VZ</span>
+                    </div>
+                </div>
+                <!-- Brand text adjusts briefly to just VZiP on very small screens -->
+                <span class="font-display font-bold text-base sm:text-lg md:text-xl tracking-wide">
+                    VZiP <span class="text-[#00e5ff] glow-text hidden md:inline">DEVELOGENZ</span>
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 text-sm tracking-wider uppercase font-semibold text-white/80"
+                aria-label="Primary">
+                <a href="index.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Home</a>
+                <a href="services.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Expertise</a>
+                <a href="portfolio.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Portfolio</a>
+                <a href="contact.html"
+                    class="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#00e5ff] hover:after:w-full after:transition-all">Contact</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/94751398968" target="_blank"
+                    class="hidden sm:inline-flex lg:inline-flex btn-primary px-6 py-2.5 rounded-full font-bold text-sm tracking-wide items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Let's Talk
+                </a>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero min-h-screen flex flex-col relative overflow-hidden pt-20">
+        <!-- Video Background -->
+        <!-- mobile fallback image (shown on small screens) -->
+        <div class="absolute inset-0 bg-cover bg-center sm:hidden"
+            style="background-image:url('https://cdn.pixabay.com/photo/2016/11/29/05/13/laptop-1867769_1280.jpg');">
+        </div>
+        <div class="video-container hidden sm:block">
+            <video autoplay loop muted playsinline>
+                <!-- An abstract tech/connection video -->
+                <source src="https://cdn.pixabay.com/video/2021/08/04/83864-584742469_large.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+
+        <div class="hero__blob pointer-events-none top-0 left-[-20%] hidden sm:block"></div>
+        <div class="hero__blob-2 pointer-events-none hidden sm:block"></div>
+
+        <div class="relative z-10 flex-1 flex items-center w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pt-12 pb-24">
+            <div class="hero__content w-full max-w-3xl relative" data-aos="fade-up" data-aos-duration="1200">
+                <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-8"
+                    data-aos="fade-down" data-aos-delay="300">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#00e5ff] animate-pulse shadow-[0_0_10px_#00e5ff]"></span>
+                    <span
+                        class="text-[10px] md:text-xs font-bold tracking-[0.1em] md:tracking-[0.2em] uppercase text-white/90 text-center">
+                        Software Development • Marketing • Design • Tech
+                    </span>
+                </div>
+
+                <h1
+                    class="font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.05] tracking-tight font-extrabold mb-6 drop-shadow-2xl">
+                    Scale Beyond Limits <br /> with
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-[#00e5ff] via-[#3d5afe] to-[#ff2d8d] animate-pulse glow-text"
+                        style="background-size: 200% auto; animation: gradientShift 4s ease infinite;">VZiP</span>
+                </h1>
+
+                <p class="text-[clamp(1.1rem,2vw,1.4rem)] text-white/90 font-medium mb-4 max-w-2xl" data-aos="fade-up"
+                    data-aos-delay="400">
+                    Your ultimate partner for Custom Software Development, Digital Marketing, and Dynamic Design.
+                </p>
+
+                <p class="text-[#c9c7d6] text-base md:text-lg mb-10 max-w-[55ch] leading-relaxed" data-aos="fade-up"
+                    data-aos-delay="500">
+                    We engineer essential business growth functions—from custom web & mobile software architectures to
+                    eye-catching logo designs, TikTok ads, professional Meta setups, and innovative advertising
+                    campaigns.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 w-full" data-aos="fade-up" data-aos-delay="600">
+                    <a href="#services"
+                        class="btn-primary w-full sm:w-auto flex items-center justify-center px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-bold text-sm md:text-base tracking-wide shadow-[0_10px_30px_rgba(0,229,255,0.3)] hover:shadow-[0_15px_40px_rgba(0,229,255,0.5)]">
+                        Explore Our Services
+                    </a>
+                    <a href="#portfolio"
+                        class="w-full sm:w-auto flex items-center justify-center px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-bold text-sm md:text-base tracking-wide border-2 border-white/20 hover:bg-white hover:text-black transition-all group backdrop-blur-sm">
+                        View Portfolio
+                        <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- EXPERTISE / SERVICES SECTION -->
+    <section id="services" class="py-16 md:py-32 px-6 md:px-12 lg:px-16 w-full max-w-7xl mx-auto relative z-10">
+        <div class="mb-12 md:mb-20 text-center flex flex-col items-center" data-aos="fade-up">
+            <div class="bg-gradient-to-r from-[#ff2d8d] to-[#7b2ff7] w-16 h-1 mb-6 rounded-full"></div>
+            <h2 class="font-display text-4xl md:text-6xl font-bold mb-6">Our Core <span
+                    class="text-[#00e5ff]">Expertise</span></h2>
+            <p class="text-[#c9c7d6] text-lg max-w-3xl">Essential functions that transform ambitious businesses into
+                market leaders. We handle everything from the first impression to the technical backbone.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+
+            <!-- Service 1: Software Development -->
+            <div class="glass-card p-6 sm:p-10 rounded-[30px] group border-t border-l border-white/10"
+                data-aos="fade-up" data-aos-delay="100">
+                <div
+                    class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#3d5afe] to-[#00e5ff] flex items-center justify-center mb-8 shadow-[0_10px_30px_rgba(61,90,254,0.4)] group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500">
+                    <i class="fa-solid fa-laptop-code text-2xl text-white"></i>
+                </div>
+                <h3
+                    class="font-display text-2xl font-bold mb-4 text-white group-hover:text-[#3d5afe] transition-colors">
+                    Software Development</h3>
+                <p class="text-[15px] text-white/70 leading-relaxed mb-6">Robust, scalable, and secure custom software
+                    architectures engineered to meet your complex business requirements with flawless execution.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Custom
+                        Apps</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Enterprise
+                        Apps</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">SaaS</span>
+                </div>
+            </div>
+
+            <!-- Service 2: Web Development -->
+            <div class="glass-card p-6 sm:p-10 rounded-[30px] group border-t border-l border-white/10"
+                data-aos="fade-up" data-aos-delay="200">
+                <div
+                    class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#00e5ff] to-[#7b2ff7] flex items-center justify-center mb-8 shadow-[0_10px_30px_rgba(0,229,255,0.4)] group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                    <i class="fa-solid fa-code text-2xl text-white"></i>
+                </div>
+                <h3
+                    class="font-display text-2xl font-bold mb-4 text-white group-hover:text-[#00e5ff] transition-colors">
+                    Web Development</h3>
+                <p class="text-[15px] text-white/70 leading-relaxed mb-6">High-performance reactive websites, immersive
+                    3D SPAs, and cinematic web applications built with modern frameworks.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Websites</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">E-Commerce</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Web
+                        Apps</span>
+                </div>
+            </div>
+
+            <!-- Service 3: Mobile Apps -->
+            <div class="glass-card p-6 sm:p-10 rounded-[30px] group border-t border-l border-white/10"
+                data-aos="fade-up" data-aos-delay="300">
+                <div
+                    class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#7b2ff7] to-[#ff2d8d] flex items-center justify-center mb-8 shadow-[0_10px_30px_rgba(123,47,247,0.4)] group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500">
+                    <i class="fa-solid fa-mobile-screen text-2xl text-white"></i>
+                </div>
+                <h3
+                    class="font-display text-2xl font-bold mb-4 text-white group-hover:text-[#7b2ff7] transition-colors">
+                    Mobile Applications</h3>
+                <p class="text-[15px] text-white/70 leading-relaxed mb-6">Cross-platform mobile applications with
+                    seamless UI/UX, real-time syncing, and powerful native capabilities for iOS and Android.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">iOS</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Android</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Cross-Platform</span>
+                </div>
+            </div>
+
+            <!-- Service 4: Marketing & Social -->
+            <div class="glass-card p-6 sm:p-10 rounded-[30px] group border-t border-l border-white/10"
+                data-aos="fade-up" data-aos-delay="400">
+                <div
+                    class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff2d8d] to-[#ffb000] flex items-center justify-center mb-8 shadow-[0_10px_30px_rgba(255,45,141,0.4)] group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                    <i class="fa-solid fa-bullhorn text-2xl text-white"></i>
+                </div>
+                <h3
+                    class="font-display text-2xl font-bold mb-4 text-white group-hover:text-[#ff2d8d] transition-colors">
+                    Digital & Meta Advertising</h3>
+                <p class="text-[15px] text-white/70 leading-relaxed mb-6">Professional Meta app setup, post boosting,
+                    and high-ROI advertising campaigns across Facebook, Instagram, and LinkedIn.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Meta
+                        Ads</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Marketing</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Boosting</span>
+                </div>
+            </div>
+
+            <!-- Service 5: TikTok & Handling -->
+            <div class="glass-card p-6 sm:p-10 rounded-[30px] group border-t border-l border-white/10"
+                data-aos="fade-up" data-aos-delay="500">
+                <div
+                    class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#000000] to-[#00e5ff] flex items-center justify-center mb-8 shadow-[0_10px_30px_rgba(0,229,255,0.3)] group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500">
+                    <i class="fa-brands fa-tiktok text-2xl text-white"></i>
+                </div>
+                <h3
+                    class="font-display text-2xl font-bold mb-4 text-white group-hover:text-[#00e5ff] transition-colors">
+                    Social Media & TikTok</h3>
+                <p class="text-[15px] text-white/70 leading-relaxed mb-6">Complete social media handling. We create and
+                    curate eye-catching advertisement images and viral TikTok videos that command attention.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Page
+                        Handling</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">TikTok
+                        Ads</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Video
+                        Creation</span>
+                </div>
+            </div>
+
+            <!-- Service 6: Graphic Design -->
+            <div class="glass-card p-6 sm:p-10 rounded-[30px] group border-t border-l border-white/10"
+                data-aos="fade-up" data-aos-delay="600">
+                <div
+                    class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ffb000] to-[#ff2d8d] flex items-center justify-center mb-8 shadow-[0_10px_30px_rgba(255,176,0,0.4)] group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                    <i class="fa-solid fa-pen-nib text-2xl text-white"></i>
+                </div>
+                <h3
+                    class="font-display text-2xl font-bold mb-4 text-white group-hover:text-[#ffb000] transition-colors">
+                    Elite Graphic Design</h3>
+                <p class="text-[15px] text-white/70 leading-relaxed mb-6">Eye-catching logo design, premium artwork
+                    design, and compelling service graphics that forge an unforgettable brand identity.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Logos</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Ad
+                        Artwork</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[11px] font-semibold text-white/90">Branding</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PORTFOLIO / PROJECTS -->
+    <section id="portfolio"
+        class="py-16 md:py-24 px-4 sm:px-6 md:px-12 w-full max-w-[1400px] mx-auto relative z-10 my-8 md:my-12 overflow-hidden">
+        <div
+            class="absolute inset-0 bg-gradient-to-b from-[#111119] to-[#07070a] rounded-[40px] md:rounded-[60px] border border-white/5 -z-10 shadow-2xl">
+        </div>
+        <div
+            class="absolute top-0 right-0 w-[500px] md:w-[800px] h-[500px] md:h-[800px] bg-[radial-gradient(circle,rgba(0,229,255,0.05)_0%,transparent_70%)] rounded-full -z-10 blur-3xl">
+        </div>
+
+        <div class="p-4 sm:p-8 md:p-16">
+            <div class="mb-12 md:mb-20 flex flex-col items-center text-center" data-aos="fade-up">
+                <span class="text-[#00e5ff] uppercase tracking-widest text-sm font-bold mb-3 block">Featured Work</span>
+                <h2 class="font-display text-5xl md:text-6xl font-bold mb-6 tracking-tight">Our <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff2d8d] to-[#00e5ff]">Portfolio</span>
+                </h2>
+                <p class="text-[#c9c7d6] text-xl max-w-2xl">Browse the campaigns, designs, and digital products we've
+                    brought to life for elite clients.</p>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Portfolio Item 1 -->
+                <div class="group cursor-pointer relative rounded-[30px] overflow-hidden" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div class="w-full aspect-square bg-[#1a1a24] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800"
+                            alt="TikTok Ad Campaign"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out opacity-80 group-hover:opacity-100">
+                        <!-- Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-black/40 to-transparent"></div>
+
+                        <div
+                            class="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span
+                                class="self-start px-4 py-1.5 mb-4 rounded-full bg-[#ff2d8d]/20 text-[#ff2d8d] text-xs font-bold backdrop-blur-md border border-[#ff2d8d]/30 relative overflow-hidden">
+                                <span class="relative z-10"><i class="fa-brands fa-tiktok mr-1"></i> TikTok
+                                    Marketing</span>
+                            </span>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 leading-tight">Viral Video
+                                Campaign</h3>
+                            <p class="text-white/70 text-sm">Created an eye-catching video series that generated 2M+
+                                organic views and drove 300% sales increase.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 -->
+                <div class="group cursor-pointer relative rounded-[30px] overflow-hidden" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <div class="w-full aspect-square bg-[#1a1a24] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800"
+                            alt="Brand Identity & Logo"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-black/40 to-transparent"></div>
+
+                        <div
+                            class="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span
+                                class="self-start px-4 py-1.5 mb-4 rounded-full bg-[#ffb000]/20 text-[#ffb000] text-xs font-bold backdrop-blur-md border border-[#ffb000]/30">
+                                <i class="fa-solid fa-pen-nib mr-1"></i> Graphic Design
+                            </span>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 leading-tight">Aura Brand
+                                Identity</h3>
+                            <p class="text-white/70 text-sm">Eye-catching logo design and complete corporate artwork
+                                packet for a modern lifestyle brand.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 -->
+                <div class="group cursor-pointer relative rounded-[30px] overflow-hidden" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <div class="w-full aspect-square bg-[#1a1a24] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+                            alt="Meta Ads Dashboard"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out opacity-80 group-hover:opacity-100 filter hue-rotate-15">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-black/40 to-transparent"></div>
+
+                        <div
+                            class="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span
+                                class="self-start px-4 py-1.5 mb-4 rounded-full bg-[#1877F2]/20 text-[#60a5fa] text-xs font-bold backdrop-blur-md border border-[#1877F2]/30">
+                                <i class="fa-brands fa-meta mr-1"></i> Meta Advertising
+                            </span>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 leading-tight">E-Commerce Scaling
+                            </h3>
+                            <p class="text-white/70 text-sm">Professional Meta app setup and targeted post boosting
+                                yielding a 4.5x Return on Ad Spend (ROAS).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 4 -->
+                <div class="group cursor-pointer relative rounded-[30px] overflow-hidden mt-0 md:mt-8 lg:mt-0"
+                    data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-full aspect-square bg-[#1a1a24] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800"
+                            alt="Web Development"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-black/40 to-transparent"></div>
+
+                        <div
+                            class="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span
+                                class="self-start px-4 py-1.5 mb-4 rounded-full bg-[#00e5ff]/20 text-[#00e5ff] text-xs font-bold backdrop-blur-md border border-[#00e5ff]/30">
+                                <i class="fa-solid fa-code mr-1"></i> Web App
+                            </span>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 leading-tight">Nexus Analytics
+                                Platform</h3>
+                            <p class="text-white/70 text-sm">High-performance custom web application solving complex
+                                data visualization needs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 5 -->
+                <div class="group cursor-pointer relative rounded-[30px] overflow-hidden mt-0 md:mt-8 lg:mt-0"
+                    data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-full aspect-square bg-[#1a1a24] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=800"
+                            alt="Mobile App"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-black/40 to-transparent"></div>
+
+                        <div
+                            class="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span
+                                class="self-start px-4 py-1.5 mb-4 rounded-full bg-[#7b2ff7]/20 text-[#b68cff] text-xs font-bold backdrop-blur-md border border-[#7b2ff7]/30">
+                                <i class="fa-solid fa-mobile-screen mr-1"></i> Mobile App
+                            </span>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 leading-tight">FitConnect App
+                            </h3>
+                            <p class="text-white/70 text-sm">Cross-platform mobile application development with seamless
+                                UI/UX and real-time syncing.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- See More CTA -->
+                <div class="group cursor-pointer relative rounded-[30px] overflow-hidden flex items-center justify-center border-2 border-dashed border-white/20 hover:border-[#00e5ff]/50 hover:bg-[#00e5ff]/5 transition-all mt-0 md:mt-8 lg:mt-0 aspect-square"
+                    data-aos="fade-up" data-aos-delay="600">
+                    <div class="text-center p-8">
+                        <div
+                            class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform group-hover:bg-[#00e5ff] group-hover:text-black shadow-[0_0_20px_rgba(0,0,0,0)] group-hover:shadow-[0_0_30px_rgba(0,229,255,0.4)]">
+                            <i class="fa-solid fa-arrow-right text-2xl"></i>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-white mb-2">View All Projects</h3>
+                        <p class="text-white/50 text-sm">See how we transform ideas into reality.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS / FEEDBACK SECTION -->
+    <section id="feedback" class="py-16 md:py-24 px-6 md:px-12 w-full max-w-7xl mx-auto relative z-10">
+        <div class="mb-10 md:mb-16 text-center flex flex-col items-center" data-aos="fade-up">
+            <span class="text-[#ffb000] uppercase tracking-widest text-sm font-bold mb-3 block"><i
+                    class="fa-solid fa-star mr-1"></i> Client Success</span>
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Customer <span
+                    class="text-[#00e5ff]">Feedback</span></h2>
+            <p class="text-[#c9c7d6] text-lg max-w-2xl">Don't just take our word for it. Hear what ambitious business
+                owners have to say about partnering with VZiP.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Feedback 1 -->
+            <div class="glass-card p-6 sm:p-8 rounded-[30px] border-t border-l border-white/10 flex flex-col"
+                data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-center gap-1 text-[#ffb000] text-sm mb-6">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-white/80 leading-relaxed mb-8 flex-1">"VZiP completely transformed our online presence.
+                    Their Meta ad strategies brought us a 400% increase in leads within the first month. Incredible
+                    ROI!"</p>
+                <div class="flex items-center gap-4 mt-auto">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/20">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=150"
+                            alt="Client Avatar" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">David M.</h4>
+                        <p class="text-[#00e5ff] text-xs font-semibold">E-Commerce Director</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback 2 -->
+            <div class="glass-card p-6 sm:p-8 rounded-[30px] border-t border-l border-white/10 flex flex-col"
+                data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center gap-1 text-[#ffb000] text-sm mb-6">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-white/80 leading-relaxed mb-8 flex-1">"The TikTok marketing campaign they handled for us
+                    went viral faster than we could have ever imagined. Highly professional and deeply creative team."
+                </p>
+                <div class="flex items-center gap-4 mt-auto">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/20">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150"
+                            alt="Client Avatar" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">Sarah Jenkins</h4>
+                        <p class="text-[#ff2d8d] text-xs font-semibold">Founder, Aura Beauty</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback 3 -->
+            <div class="glass-card p-6 sm:p-8 rounded-[30px] border-t border-l border-white/10 flex flex-col"
+                data-aos="fade-up" data-aos-delay="300">
+                <div class="flex items-center gap-1 text-[#ffb000] text-sm mb-6">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-white/80 leading-relaxed mb-8 flex-1">"From the logo design to the final mobile app
+                    deployment, VZiP handled everything flawlessly. They truly are an all-in-one growth partner."</p>
+                <div class="flex items-center gap-4 mt-auto">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/20">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=150"
+                            alt="Client Avatar" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">Michael R.</h4>
+                        <p class="text-[#7b2ff7] text-xs font-semibold">CEO, TechFit Solutions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 pt-16 pb-8 px-6 relative z-10 bg-[var(--bg-dark)]" data-aos="fade-up">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="font-display font-bold text-2xl tracking-wide flex items-center gap-4">
+                <div class="relative w-12 h-12 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,229,255,0.2)]"
+                    style="background: radial-gradient(circle at 70% 30%, #50a9a0 0%, #151e32 50%, #0a0f1d 100%);">
+                    <div class="w-[65%] h-[65%] bg-white rounded-md flex items-center justify-center shadow-sm">
+                        <span class="text-[12px] font-black tracking-tight" style="color: #111a2c;">VZ</span>
+                    </div>
+                </div>
+                VZiP <span class="text-[#00e5ff]">DEVELOGENZ</span>
+            </div>
+
+            <div class="flex gap-6">
+                <a href="https://wa.me/94751398968" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#25D366] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                </a>
+                <a href="https://facebook.com" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#1877F2] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-facebook-f text-xl"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#E1306C] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-instagram text-xl"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank"
+                    class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#0A66C2] hover:text-white transition-all hover:scale-110">
+                    <i class="fa-brands fa-linkedin-in text-xl"></i>
+                </a>
+            </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-white/5 text-center flex flex-col items-center">
+            <p class="text-white/40 text-sm">© 2026 VZiP DEVELOGENZ. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        /* --- Navbar Glassmorphism Enhancement & Mobile Menu--- */
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-[0_10px_30px_rgba(0,0,0,0.5)]');
+                header.style.background = 'rgba(7, 7, 10, 0.85)';
+            } else {
+                header.classList.remove('shadow-[0_10px_30px_rgba(0,0,0,0.5)]');
+                header.style.background = 'rgba(7, 7, 10, 0.4)';
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
